@@ -12,9 +12,16 @@ class MultipleLanguageManipulate extends Controller
      */
     public function multipleLanguageManipulate(string $lang = 'en')
     {
+        app()->setLocale($lang); // set locale
+
         try {
             $industrySectors = IndustrySector::getAllByPluck($lang);
-            return view('demo',compact('industrySectors',$industrySectors));
+            $keySpecificValue = labelManipulate('magic-label','current_language_options')[$lang];
+
+            return view('demo')->with([
+                'industrySectors' => $industrySectors,
+                'keySpecificValue' => $keySpecificValue
+            ]);
         } catch(\Exception $ex) {
             return $ex;
         }

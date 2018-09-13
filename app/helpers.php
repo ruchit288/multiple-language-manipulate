@@ -20,11 +20,11 @@ if (!function_exists('checkDatabaseConnection')) {
 if (!function_exists('dbTrans')) {
 
     /**
-     * @param $lang
-     * @param $tableName
+     * @param string $lang
+     * @param string $tableName
      * @return string
      */
-    function dbTrans($lang, $tableName)
+    function dbTrans(string $lang, string $tableName)
     {
         return $lang.'_'.config('config-variables.field_post_fix.'.$tableName);
     }
@@ -34,8 +34,7 @@ if (!function_exists('pluckDBTrans')) {
 
     /**
      * @param $query
-     * @param $fieldName
-     *
+     * @param string $fieldName
      * @return mixed
      */
     function pluckDBTrans($query, string $fieldName)
@@ -43,5 +42,22 @@ if (!function_exists('pluckDBTrans')) {
         return $query->where($fieldName, '!=', null)
             ->pluck($fieldName, 'id')
             ->toArray();
+    }
+}
+
+if (!function_exists('labelManipulate')) {
+
+    /**
+     * @param string $configFileName
+     * @param string $key
+     * @return array|bool|\Illuminate\Contracts\Translation\Translator|null|string
+     */
+    function labelManipulate(string $configFileName,string $key)
+    {
+        try {
+            return trans($configFileName.'.'.$key);
+        } catch (\Exception $ex) {
+            return false;
+        }
     }
 }
