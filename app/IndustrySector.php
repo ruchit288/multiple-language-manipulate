@@ -24,6 +24,7 @@ class IndustrySector extends Model
 
     /**
      * @param string $lang
+     *
      * @return mixed
      */
     public static function getAllByPluck(string $lang = 'en')

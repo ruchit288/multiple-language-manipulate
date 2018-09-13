@@ -35,6 +35,7 @@ class InstallAppCommand extends Command
 
     /**
      * InstallAppCommand constructor.
+     *
      * @param Filesystem $files
      */
     public function __construct(Filesystem $files)

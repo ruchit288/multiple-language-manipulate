@@ -8,6 +8,7 @@ class MultipleLanguageManipulate extends Controller
 {
     /**
      * @param string $lang
+     *
      * @return \Exception|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function multipleLanguageManipulate(string $lang = 'en')
@@ -16,15 +17,14 @@ class MultipleLanguageManipulate extends Controller
 
         try {
             $industrySectors = IndustrySector::getAllByPluck($lang);
-            $keySpecificValue = labelManipulate('magic-label','current_language_options')[$lang];
+            $keySpecificValue = labelManipulate('magic-label', 'current_language_options')[$lang];
 
             return view('demo')->with([
-                'industrySectors' => $industrySectors,
-                'keySpecificValue' => $keySpecificValue
+                'industrySectors'  => $industrySectors,
+                'keySpecificValue' => $keySpecificValue,
             ]);
-        } catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             return $ex;
         }
-
     }
 }
