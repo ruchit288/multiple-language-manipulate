@@ -14,7 +14,7 @@ return [
     /*
      * Industry Sector table used to store industry sector
      */
-    'industry_sector_table' => 'industry_sector',
+    'industry_sector_table' => 'industry_sectors',
 
     'industry_sector' => IndustrySector::class,
 ];

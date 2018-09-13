@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIndustrySectorTable extends Migration
+class CreateIndustrySectorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateIndustrySectorTable extends Migration
      */
     public function up()
     {
-        Schema::create('industry_sector', function (Blueprint $table) {
+        Schema::create('industry_sectors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255)->comment('Default Label');
             $table->string('en_industry_sector_name', 255)->nullable()->comment('English Label');
@@ -30,6 +30,6 @@ class CreateIndustrySectorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('industry_sector');
+        Schema::dropIfExists('industry_sectors');
     }
 }
