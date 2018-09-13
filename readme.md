@@ -1,6 +1,6 @@
 
 
-## Multilingual Manipulate Demo
+## Multi Language Manipulate Demo
 
 
 ## Contributing
