@@ -1,64 +1,134 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
+## Multilingual Manipulate Demo
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
 
 ## Contributing
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Security Vulnerabilities
+## Introduction
+This application helps to manipulate labels, dropdown values, string, content on the basis of language change.Values will be display automatically from the database or language files using helpers. 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Installation
+
+Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.6/installation#installation)
+
+Clone the repository
+
+    git clone https://github.com/viitorcloudtechnologies/multiple-language-manipulate.git
+    
+Switch to the repo folder
+
+    cd multiple-language-manipulate
+    
+If you have linux system, you can execute below command only in your project root
+    
+    1) sudo chmod -R 777 install.sh
+    2) ./install.sh
+    
+Run Artisan Command for database setup, connection and configuration.
+    
+    php artisan install:app
+    
+Please add proper information while performing above command.
+
+or you can setup manually using below command
+
+Run the database migrations and seeder(**Set the database connection in .env before migrating**)
+
+    php artisan migrate
+    
+    php artisan db:seed
+
+Start the local development server
+
+    php artisan serve
+
+## Kye points before using this feature
+    Please check composer.json file in which you have to define 'helpers.php' file and 'database' folder path.
+    
+    Review config/config-variables.php file.
+    
+    Review config/table-variables.php file.
+    
+    Review resources/lang folder.
+    
+    Review migrations of 'industry sector' which contain langauge specific column. 
+
+## Application contain example
+```
+In this application you will find 'industry sector' model, migration and seeder.
+You can review this industry sector demo and check each helpers functions.
+```
+## Helpers functions
+
+`dbTrans` function used to fetch language specific column from the table.
+    
+```php
+if (!function_exists('dbTrans')) {
+
+    /**
+     * @param string $lang
+     * @param string $tableName
+     * @return string
+     */
+    function dbTrans(string $lang, string $tableName)
+    {
+        return $lang.'_'.config('config-variables.field_post_fix.'.$tableName);
+    }
+}
+```
+
+`pluckDBTrans` function used to fetch values of language specific column from the table.
+    
+```php
+if (!function_exists('pluckDBTrans')) {
+
+    /**
+     * @param $query
+     * @param string $fieldName
+     * @return mixed
+     */
+    function pluckDBTrans($query, string $fieldName)
+    {
+        return $query->where($fieldName, '!=', null)
+            ->pluck($fieldName, 'id')
+            ->toArray();
+    }
+}
+```
+
+`labelManipulate` function used to display value of specific key from language files on the basis of selected language.
+    
+```php
+if (!function_exists('labelManipulate')) {
+
+    /**
+     * @param string $configFileName
+     * @param string $key
+     * @return array|bool|\Illuminate\Contracts\Translation\Translator|null|string
+     */
+    function labelManipulate(string $configFileName,string $key)
+    {
+        try {
+            return trans($configFileName.'.'.$key);
+        } catch (\Exception $ex) {
+            return false;
+        }
+    }
+}
+```
+
+## Contributing
+Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at vishal@viitorcloud.com or ruchit.patel@viitorcloud.com
+
+## Authors
+* [**Ruchit Patel**](https://github.com/ruchit-viitorcloud)
+
+## Special Thanks to contributor who help to build this feature.
+* [**Ruchit Patel**](https://github.com/ruchit-viitorcloud)
+* [**Sahil Darji**](https://github.com/vc-sahil)
 
 ## License
 
