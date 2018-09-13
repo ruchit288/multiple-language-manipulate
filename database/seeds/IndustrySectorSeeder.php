@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class IndustrySectorSeeder
+ * Class IndustrySectorSeeder.
  */
 class IndustrySectorSeeder extends Seeder
 {
@@ -22,36 +22,36 @@ class IndustrySectorSeeder extends Seeder
         $this->truncate(config('table-variables.industry_sector_table'));
         $industrySector = [
             [
-                'name'                     => 'Commercial',
+                'name'                          => 'Commercial',
                 'en_industry_sector_name'       => 'Commercial',
                 'it_industry_sector_name'       => 'Commerciale',
                 'gr_industry_sector_name'       => 'kommerziell',
-                'created_at'               => Carbon::now(),
-                'updated_at'               => Carbon::now(),
+                'created_at'                    => Carbon::now(),
+                'updated_at'                    => Carbon::now(),
             ],
             [
-                'name'                     => 'Education',
+                'name'                          => 'Education',
                 'en_industry_sector_name'       => 'Education',
                 'it_industry_sector_name'       => 'Educativo',
                 'gr_industry_sector_name'       => 'Pädagogisch',
-                'created_at'               => Carbon::now(),
-                'updated_at'               => Carbon::now(),
+                'created_at'                    => Carbon::now(),
+                'updated_at'                    => Carbon::now(),
             ],
             [
-                'name'                     => 'Health',
+                'name'                          => 'Health',
                 'en_industry_sector_name'       => 'Health',
                 'it_industry_sector_name'       => 'Salute',
                 'gr_industry_sector_name'       => 'Gesundheit',
-                'created_at'               => Carbon::now(),
-                'updated_at'               => Carbon::now(),
+                'created_at'                    => Carbon::now(),
+                'updated_at'                    => Carbon::now(),
             ],
             [
-                'name'                     => 'Banking',
+                'name'                          => 'Banking',
                 'en_industry_sector_name'       => 'Banking',
                 'it_industry_sector_name'       => 'Bancario',
                 'gr_industry_sector_name'       => 'Banking',
-                'created_at'               => Carbon::now(),
-                'updated_at'               => Carbon::now(),
+                'created_at'                    => Carbon::now(),
+                'updated_at'                    => Carbon::now(),
             ],
         ];
 

@@ -22,6 +22,7 @@ if (!function_exists('dbTrans')) {
     /**
      * @param string $lang
      * @param string $tableName
+     *
      * @return string
      */
     function dbTrans(string $lang, string $tableName)
@@ -35,6 +36,7 @@ if (!function_exists('pluckDBTrans')) {
     /**
      * @param $query
      * @param string $fieldName
+     *
      * @return mixed
      */
     function pluckDBTrans($query, string $fieldName)
@@ -50,9 +52,10 @@ if (!function_exists('labelManipulate')) {
     /**
      * @param string $configFileName
      * @param string $key
+     *
      * @return array|bool|\Illuminate\Contracts\Translation\Translator|null|string
      */
-    function labelManipulate(string $configFileName,string $key)
+    function labelManipulate(string $configFileName, string $key)
     {
         try {
             return trans($configFileName.'.'.$key);
