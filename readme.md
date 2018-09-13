@@ -126,10 +126,10 @@ Feel free to create any pull requests for the project. For proposing any new cha
 ## Authors
 * [**Ruchit Patel**](https://github.com/ruchit-viitorcloud)
 
-## Special Thanks to contributor who help to build this feature.
+## Special Thanks to
 * [**Ruchit Patel**](https://github.com/ruchit-viitorcloud)
 * [**Sahil Darji**](https://github.com/vc-sahil)
+* [Laravel](https://laravel.com) Community
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[MIT LICENSE](https://github.com/viitorcloudtechnologies/multiple-language-manipulate/blob/master/LICENSE)
