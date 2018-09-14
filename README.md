@@ -74,7 +74,7 @@ Start the local development server
 In this application you will find 'industry sector' model, migration and seeder.
 You can review this industry sector demo and check each helpers functions.
 ```
-## Helpers functions
+## Helper functions
 
 `dbTrans` function used to fetch language specific column from the table.
     
