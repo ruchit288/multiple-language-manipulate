@@ -11,6 +11,12 @@ use PDOException;
 use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Question\Question;
 
+/**
+ * Class InstallAppCommand
+ * @package App\Console\Commands
+ *
+ * @author Ruchit Patel
+ */
 class InstallAppCommand extends Command
 {
     /**
@@ -108,7 +114,6 @@ class InstallAppCommand extends Command
      *
      * @return void
      *
-     * @author Ruchit Patel
      */
     protected function setDatabaseInfo()
     {
@@ -232,6 +237,9 @@ class InstallAppCommand extends Command
         }
     }
 
+    /**
+     * @param $database
+     */
     protected function dumpDB($database)
     {
         if (!empty($database)) {
@@ -250,6 +258,9 @@ class InstallAppCommand extends Command
         }
     }
 
+    /**
+     * @param $database
+     */
     protected function migrateTables($database)
     {
         if ($this->confirm('You want to migrate tables?')) {
