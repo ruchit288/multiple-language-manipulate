@@ -7,10 +7,9 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use PDOException;
 use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Question\Question;
-use PDO;
-use PDOException;
 
 class InstallAppCommand extends Command
 {
@@ -189,7 +188,7 @@ class InstallAppCommand extends Command
             $segments = array_reverse(explode(DIRECTORY_SEPARATOR, app_path()));
             $name = explode('.', $segments[1])[0];
 
-            return str_replace('-','_',str_slug($name));
+            return str_replace('-', '_', str_slug($name));
         } catch (Exception $e) {
             return '';
         }
@@ -212,8 +211,9 @@ class InstallAppCommand extends Command
      */
     protected function createDatabase($database)
     {
-        if (! $database) {
+        if (!$database) {
             $this->info('Skipping creation of database as env(DB_DATABASE) is empty');
+
             return;
         }
 
@@ -228,6 +228,7 @@ class InstallAppCommand extends Command
             return;
         } catch (PDOException $exception) {
             $this->error(sprintf('Failed to create %s database, %s', $database, $exception->getMessage()));
+
             return;
         }
     }
