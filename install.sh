@@ -23,13 +23,5 @@ echo -e "\033[32mCurrent enable PHP Modules:\033[0m"
 php -m
 echo "-----------------------------------------"
 
-composer install
-
-
-php artisan cache:clear
-php artisan route:clear
-php artisan config:clear
-php artisan view:clear
-
 echo -e "\033[32mStarting install multiple language manipulate...\033[0m"
 php artisan install:app
