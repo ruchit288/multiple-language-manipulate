@@ -12,8 +12,7 @@ use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Question\Question;
 
 /**
- * Class InstallAppCommand
- * @package App\Console\Commands
+ * Class InstallAppCommand.
  *
  * @author Ruchit Patel
  */
@@ -113,7 +112,6 @@ class InstallAppCommand extends Command
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      *
      * @return void
-     *
      */
     protected function setDatabaseInfo()
     {
