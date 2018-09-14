@@ -41,10 +41,23 @@ Run the database migrations and seeder(**Set the database connection in .env bef
     
     php artisan db:seed
 
+Default languages in this application
+    
+    en :- English (By default)
+    it :- Italy
+    gr :- Germany
+
 Start the local development server
 
     php artisan serve
-
+    
+    http:://127.0.0.1::[your_port] (By default english lang loaded)
+    
+    http:://127.0.0.1::[your_port]/it (For italy)
+    
+    http:://127.0.0.1::[your_port]/gr (For germany)
+    
+   
 ## Kye points before using this feature
     Please check composer.json file in which you have to define 'helpers.php' file and 'database' folder path.
     
