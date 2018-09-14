@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\IndustrySector;
+use Illuminate\Support\Facades\Log;
 
 class MultipleLanguageManipulate extends Controller
 {
@@ -24,7 +25,8 @@ class MultipleLanguageManipulate extends Controller
                 'keySpecificValue' => $keySpecificValue,
             ]);
         } catch (\Exception $ex) {
-            return $ex;
+            Log::error($ex);
+            abort(404);
         }
     }
 }
