@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Question\Question;
+use PDO;
+use PDOException;
 
 class InstallAppCommand extends Command
 {
@@ -72,6 +74,9 @@ class InstallAppCommand extends Command
         //Key Generate
         Artisan::call('key:generate');
         $this->line('Key generated in .env file!');
+        $this->line('------------------');
+        $this->info('Now you can access the application on below url!');
+        Artisan::call('serve');
     }
 
     /**
@@ -104,6 +109,7 @@ class InstallAppCommand extends Command
             $question = new Question('What is your MySQL password?', '<none>');
             $question->setHidden(true)->setHiddenFallback(true);
             $this->password = (new SymfonyQuestionHelper())->ask($this->input, $this->output, $question);
+
             if ($this->password === '<none>') {
                 $this->password = '';
             }
@@ -131,11 +137,13 @@ class InstallAppCommand extends Command
             unset($this->laravel['config']['database.connections.mysql.database']);
 
             if (!checkDatabaseConnection()) {
-                $this->error('Can not connect to database, please try again!');
+                $this->error('Can not connect to database!');
             } else {
-                $this->info('Connect to database successfully!');
+                $this->info('Connected successfully!');
             }
         }
+
+        $this->createDatabase($this->database); // create database if not exists.
 
         if ($this->confirm('You want to dump database sql ?')) {
             if (!empty($this->database)) {
@@ -146,7 +154,7 @@ class InstallAppCommand extends Command
                 DB::unprepared('USE `'.$this->database.'`');
                 DB::connection()->setDatabaseName($this->database);
 
-                $dumpDB = DB::unprepared(file_get_contents(base_path().'/database/dump/laravel_vue_spa_boilerplate.sql'));
+                $dumpDB = DB::unprepared(file_get_contents(base_path().'/database/dump/multiple_language_manipulate.sql'));
 
                 if ($dumpDB) {
                     $this->info('Import default database successfully!');
@@ -181,7 +189,7 @@ class InstallAppCommand extends Command
             $segments = array_reverse(explode(DIRECTORY_SEPARATOR, app_path()));
             $name = explode('.', $segments[1])[0];
 
-            return str_slug($name);
+            return str_replace('-','_',str_slug($name));
         } catch (Exception $e) {
             return '';
         }
@@ -197,5 +205,30 @@ class InstallAppCommand extends Command
     protected function getKeyFile()
     {
         return $this->files->exists('.env') ? $this->files->get('.env') : $this->files->get('.env.example');
+    }
+
+    /**
+     * @param $database
+     */
+    protected function createDatabase($database)
+    {
+        if (! $database) {
+            $this->info('Skipping creation of database as env(DB_DATABASE) is empty');
+            return;
+        }
+
+        try {
+            $query = "CREATE DATABASE IF NOT EXISTS $database CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;";
+            if (DB::statement($query)) {
+                $this->info("Successfully created $database database");
+            } else {
+                $this->info('Oops, Something went wrong, please try again or create database manually !!!');
+            }
+
+            return;
+        } catch (PDOException $exception) {
+            $this->error(sprintf('Failed to create %s database, %s', $database, $exception->getMessage()));
+            return;
+        }
     }
 }
