@@ -55,6 +55,7 @@ class InstallAppCommand extends Command
         $this->line('------------------');
         $this->line('Welcome to Multiple language manipulate demo .');
         $this->line('------------------');
+        exec('composer install'); // composer install
 
         $extensions = get_loaded_extensions();
         $require_extensions = ['mbstring', 'openssl', 'curl', 'exif', 'fileinfo', 'tokenizer'];
@@ -74,6 +75,27 @@ class InstallAppCommand extends Command
         Artisan::call('key:generate');
         $this->line('Key generated in .env file!');
         $this->line('------------------');
+
+        //Cache Clear
+        Artisan::call('cache:clear');
+        $this->info('Application cache cleared!');
+        $this->line('------------------');
+
+        //Route Clear
+        Artisan::call('route:clear');
+        $this->info('Route cache cleared!');
+        $this->line('------------------');
+
+        //Config Clear
+        Artisan::call('config:clear');
+        $this->info('Configuration cache cleared!');
+        $this->line('------------------');
+
+        //View Clear
+        Artisan::call('view:clear');
+        $this->info('Compiled view cleared!');
+        $this->line('------------------');
+
         $this->info('Now you can access the application on below url!');
         $this->line('Laravel development server started: <http://127.0.0.1:8000>');
         Artisan::call('serve');
@@ -146,33 +168,9 @@ class InstallAppCommand extends Command
         $this->createDatabase($this->database); // create database if not exists.
 
         if ($this->confirm('You want to dump database sql ?')) {
-            if (!empty($this->database)) {
-                // Force the new login to be used
-                DB::purge();
-
-                // Switch to use {$this->database}
-                DB::unprepared('USE `'.$this->database.'`');
-                DB::connection()->setDatabaseName($this->database);
-
-                $dumpDB = DB::unprepared(file_get_contents(base_path().'/database/dump/multiple_language_manipulate.sql'));
-
-                if ($dumpDB) {
-                    $this->info('Import default database successfully!');
-                }
-            }
+            $this->dumpDB($this->database);
         } else {
-            if ($this->confirm('You want to migrate tables?')) {
-                // Switch to use {$this->database}
-                DB::unprepared('USE `'.$this->database.'`');
-                //DB::connection()->setDatabaseName($this->database);
-                Artisan::call('migrate');
-                $this->info('Migration successfully done!');
-
-                if ($this->confirm('You want to seeding your database?')) {
-                    Artisan::call('db:seed');
-                    $this->info('Seeding successfully done!');
-                }
-            }
+            $this->migrateTables($this->database);
         }
     }
 
@@ -231,6 +229,40 @@ class InstallAppCommand extends Command
             $this->error(sprintf('Failed to create %s database, %s', $database, $exception->getMessage()));
 
             return;
+        }
+    }
+
+    protected function dumpDB($database)
+    {
+        if (!empty($database)) {
+            // Force the new login to be used
+            DB::purge();
+
+            // Switch to use {$this->database}
+            DB::unprepared('USE `'.$database.'`');
+            DB::connection()->setDatabaseName($database);
+
+            $dumpDB = DB::unprepared(file_get_contents(base_path().'/database/dump/multiple_language_manipulate.sql'));
+
+            if ($dumpDB) {
+                $this->info('Import default database successfully!');
+            }
+        }
+    }
+
+    protected function migrateTables($database)
+    {
+        if ($this->confirm('You want to migrate tables?')) {
+            // Switch to use {$this->database}
+            DB::unprepared('USE `'.$database.'`');
+            //DB::connection()->setDatabaseName($this->database);
+            Artisan::call('migrate');
+            $this->info('Migration successfully done!');
+
+            if ($this->confirm('You want to seeding your database?')) {
+                Artisan::call('db:seed');
+                $this->info('Seeding successfully done!');
+            }
         }
     }
 }
