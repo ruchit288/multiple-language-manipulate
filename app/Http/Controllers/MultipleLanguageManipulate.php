@@ -18,7 +18,7 @@ class MultipleLanguageManipulate extends Controller
 
         try {
             $industrySectors = IndustrySector::getAllByPluck($lang);
-            $keySpecificValue = labelManipulate('magic-label', 'current_language_options')[$lang];
+            $keySpecificValue = labelManipulate('magic-label', 'current_language_options')[$lang]; // fetch key specific value from language file.
 
             return view('demo')->with([
                 'industrySectors'  => $industrySectors,
