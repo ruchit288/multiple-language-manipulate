@@ -109,7 +109,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xl-12">
-            <h2 class="text-center">Multiple Language Manipulate Demo</h2>
+            <h2 class="text-center">{{labelManipulate('magic-label','title')}}</h2>
             <div class="list-dropbox text-center">
                 <lable>{{labelManipulate('magic-label','current_language')}} : {{$keySpecificValue}}</lable>
             </div>
