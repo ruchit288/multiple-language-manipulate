@@ -10,5 +10,5 @@ return [
         'it' => 'Italia',
         'gr' => 'Germania',
     ],
-    'title'                    => 'Demo di manipolazione in più lingue'
+    'title'                    => 'Demo di manipolazione in più lingue',
 ];
