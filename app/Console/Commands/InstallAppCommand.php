@@ -129,7 +129,7 @@ class InstallAppCommand extends Command
             $this->port = $this->ask('Enter a database port?', config('config-variables.default_db_port'));
             $this->database = $this->ask('Enter a database name', $this->guessDatabaseName());
 
-            $this->username = $this->ask('What is your MySQL username?', config('conf-variables.default_db_username'));
+            $this->username = $this->ask('What is your MySQL username?', config('config-variables.default_db_username'));
 
             $question = new Question('What is your MySQL password?', '<none>');
             $question->setHidden(true)->setHiddenFallback(true);
