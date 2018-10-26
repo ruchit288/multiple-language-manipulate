@@ -10,5 +10,5 @@ return [
         'it' => 'Italy',
         'gr' => 'Germany',
     ],
-    'title'                    => 'Multiple Language Manipulate Demo'
+    'title'                    => 'Multiple Language Manipulate Demo',
 ];
