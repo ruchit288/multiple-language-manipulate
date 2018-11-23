@@ -11,22 +11,23 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> 
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
 
     <!-- Styles -->
     <style>
         html,
-        body {            
+        body {
             font-family: 'Raleway', sans-serif;
             margin: 0;
             padding: 0;
             height: 100%;
         }
+
     </style>
 </head>
 
 <body class="bg-grey-lighter">
-    <div class="container m-auto">
+    <div class="max-w-4xl m-auto">
         <div class="flex mb-4">
             <div class="w-full text-center">
                 <h2 class="text-center font-semibold mt-24 text-3xl text-red-light">{{labelManipulate('magic-label','title')}}</h2>
@@ -35,16 +36,15 @@
                         : {{$keySpecificValue}}</lable>
                 </div>
 
-                <div class="flex mb-4 justify-between">
-                    <div class="border-5 border-red-light p-8 rounded-lg flex">
-                        <div class="w-screen max-w-sm rounded-lg overflow-hidden shadow-lg bg-white p-10 justify-center">                        
-                                <div>
-                                    <h3 class="text-center text-xl font-semibold text-red-light pb-2 border-b-2 inline-block mb-6">
-                                        {{labelManipulate('magic-label','select_drop_down')}}:
-                                    </h3>
-                                    <!-- <lable class="pr-5 text-xl font-semibold text-red-light">{{labelManipulate('magic-label','select_drop_down')}}
-                                    :</lable> -->
-                                </div>
+                <div class="flex mb-4 justify-around">
+                    <div class="rounded-lg w-2/5 border border-red-light">
+                        <div class="w-full rounded-lg overflow-hidden shadow-lg bg-white p-10 justify-center">
+                            <div class="w-full">
+                                <h3 class="text-center text-xl font-semibold text-red-light pb-2 border-b-2 inline-block mb-6">
+                                    {{labelManipulate('magic-label','select_drop_down')}}:
+                                </h3>
+                            </div>
+                            <div class="w-full">
                                 <select class="border border-red-light font-semibold bg-transparent p-2">
                                     <option value="" disabled selected>{{
                                         labelManipulate('magic-label','choose_your_option')
@@ -55,10 +55,29 @@
                                     @endforeach
                                     @endif
                                 </select>
+                            </div>
+                        </div>
+                        <div class="bg-grey-light w-full overflow-hidden rounded-lg">
+                            <pre class="w-full overflow-auto py-4 text-sm text-left">
+    <code>&lt;div class="w-full min-w-sm rounded-lg overflow-hidden shadow-lg bg-white p-10 justify-center"&gt;
+        &lt;div class="w-full"&gt;
+            &lt;h3 class="text-center text-xl font-semibold text-red-light pb-2 border-b-2 inline-block mb-6"&gt;{{labelManipulate('magic-label','select_drop_down')}}:&lt;/h3&gt;
+        &lt;/div&gt;    
+        &lt;div class="w-full"&gt;
+            &lt;select class="border border-red-light font-semibold bg-transparent p-2"&gt;
+                &lt;option value="" disabled selected&gt;{{labelManipulate('magic-label','choose_your_option')}}&lt;/option&gt;
+            @if(count($industrySectors))@foreach($industrySectors as $key => $value)
+    &lt;option value="{{$key}}">{{ $value }}&gt;&lt;/option&gt;
+            @endforeach @endif
+&lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+                                    </code>
+                                    </pre>
                         </div>
                     </div>
-                    <div class="border-5 border-red-light p-8 rounded-lg">
-                        <div class="w-screen max-w-sm rounded-lg overflow-hidden shadow-lg bg-white p-10 content-center">
+                    <div class="rounded-lg w-2/5 border border-red-light">
+                        <div class="w-full rounded-lg overflow-hidden shadow-lg bg-white p-10 content-center">
                             <h3 class="text-center text-xl font-semibold text-red-light pb-2 border-b-2 inline-block mb-6">{{
                                 labelManipulate('magic-label','industry_sector') }}</h3>
                             <ul class="bg-white block p-0 text-left w-64 m-auto">
@@ -79,4 +98,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
 </body>
+
 </html>
