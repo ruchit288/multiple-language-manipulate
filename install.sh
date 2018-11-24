@@ -24,4 +24,5 @@ php -m
 echo "-----------------------------------------"
 
 echo -e "\033[32mStarting install multiple language manipulate...\033[0m"
+Composer install
 php artisan install:app
